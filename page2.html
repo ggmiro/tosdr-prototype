@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToS;DR — Amazon</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Dark Dimmed — easy on dry eyes, not pure black */
+    --bad: #FF7B6B;
+    --bad-bg: #2E1F1E;
+    --bad-border: #4A2E2C;
+    --neutral: #8B8B8B;
+    --neutral-bg: #2A2A2E;
+    --neutral-border: #3A3A40;
+    --good: #5BC98A;
+    --good-bg: #1A2E24;
+    --good-border: #2A4A38;
+    --grade-d: #FF9A5C;
+    --grade-d-bg: #2E2018;
+    --blue: #6AABF0;
+    --blue-light: #1A2E42;
+    --text: #E8E8EC;
+    --text-secondary: #A0A0B0;
+    --text-muted: #606070;
+    --border: #35353F;
+    --bg: #22222A;
+    --white: #2A2A34;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #1C1C24;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: #22222A;
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .site-header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .site-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+  }
+  .site-logo span { color: var(--text); }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+  }
+
+  /* SERVICE HEADER */
+  .service-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: transparent;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+  .service-identity {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .service-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #FF9900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+  .service-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  /* GRADE BADGE */
+  .grade-tooltip-wrap { position: relative; }
+  .grade-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--grade-d-bg);
+    border: 1.5px solid #F2C09A;
+    border-radius: var(--radius);
+    padding: 8px 16px;
+    cursor: default;
+    transition: box-shadow 0.15s;
+  }
+  .grade-badge:hover { box-shadow: var(--shadow-md); }
+  .grade-letter {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--grade-d);
+    font-family: 'DM Mono', monospace;
+  }
+  .grade-label {
+    font-size: 12px;
+    color: var(--grade-d);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .grade-label strong { display: block; font-size: 13px; }
+  .grade-tooltip {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    width: 260px;
+    background: #32323E;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    box-shadow: var(--shadow-md);
+    z-index: 50;
+    font-size: 13px;
+  }
+  .grade-tooltip-wrap:hover .grade-tooltip { display: block; }
+  .grade-tooltip p { margin-bottom: 8px; color: var(--text-secondary); }
+  .grade-scale { display: flex; flex-direction: column; gap: 5px; }
+  .grade-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .grade-pill {
+    width: 26px; height: 20px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 11px; font-family: 'DM Mono', monospace;
+  }
+  .g-a { background: #D4EDDA; color: #1D6A38; }
+  .g-b { background: #D1ECF1; color: #0C5460; }
+  .g-c { background: #FFF3CD; color: #856404; }
+  .g-d { background: #FEE0CC; color: #C84B11; }
+  .g-e { background: #F8D7DA; color: #721C24; }
+
+  /* RISK SNAPSHOT */
+  .risk-snapshot {
+    background: transparent;
+    border: 1px solid var(--bad-border);
+    border-left: 4px solid var(--bad);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .risk-snapshot-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--bad);
+    margin-bottom: 12px;
+  }
+  .risk-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .risk-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .risk-icon { font-size: 15px; margin-top: 1px; flex-shrink: 0; }
+  .risk-text { color: var(--text); font-weight: 500; }
+
+  /* PREFERENCES BAR - removed, merged into filter bar */
+
+  /* COMBINED FILTER ROW */
+  .filter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 8px;
+  }
+  .section-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .section-tab {
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .section-tab.active {
+    background: var(--blue-light);
+    border-color: var(--blue);
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .section-tab .tab-tip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2A2A36;
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 400;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+  .section-tab .tab-tip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--border);
+  }
+  .section-tab:hover .tab-tip,
+  .section-tab.active:hover .tab-tip { opacity: 1; }
+
+  /* SEVERITY ICONS */
+  .severity-filters {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .sev-btn {
+    position: relative;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    opacity: 0.35;
+  }
+  .sev-btn.active { opacity: 1; border-color: transparent; }
+  .sev-btn.good.active  { background: #E8F5EE; border-color: #B6E5CC; }
+  .sev-btn.neutral.active { background: #EFEFEF; border-color: #CCC; }
+  .sev-btn.bad.active   { background: #FDECEA; border-color: #F5C5C0; }
+  .sev-btn svg { width: 18px; height: 18px; }
+  .sev-btn .tip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%; transform: translateX(-50%);
+    background: #32323E;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+    pointer-events: none;
+    z-index: 50;
+  }
+  .sev-btn:hover .tip { display: block; }
+
+  /* RESET BTN */
+  .reset-btn {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--blue);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    padding: 4px 6px;
+    border-radius: 4px;
+    opacity: 0.3;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .reset-btn.active { opacity: 1; }
+  .reset-btn:hover { background: var(--blue-light); }
+
+  /* FILTER BAR - kept for spacing */
+  .filter-bar { display: none; }
+
+  /* AUTO-SORT NOTE */
+  .auto-sort-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* CLAUSE CARDS */
+  .clause-list-wrap {
+    background: #1E1E28;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 8px;
+  }
+  .clause-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .clause-card {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s;
+  }
+  .clause-card:hover { box-shadow: var(--shadow-md); }
+  .clause-card.bad    { border-left: 4px solid var(--bad); background: #2E1F1E; }
+  .clause-card.neutral{ border-left: 4px solid #888; background: #252530; }
+  .clause-card.good   { border-left: 4px solid var(--good); background: #1A2A22; }
+  .clause-card.hidden { display: none; }
+
+  .clause-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .clause-icon { font-size: 17px; margin-top: 1px; flex-shrink: 0; }
+  .clause-main { flex: 1; }
+  .clause-title { font-weight: 600; font-size: 14px; color: var(--text); margin-bottom: 3px; }
+  .clause-verdict { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .clause-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .cat-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.03em;
+  }
+  .cat-data    { background: #E8F0FE; color: #1A56D0; }
+  .cat-money   { background: #FEF3C7; color: #92400E; }
+  .cat-rights  { background: #F3E8FF; color: #6D28D9; }
+  .cat-content { background: #DCFCE7; color: #15803D; }
+
+  .clause-toggle {
+    font-size: 18px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    margin-top: 1px;
+  }
+  .clause-card.open .clause-toggle { transform: rotate(180deg); }
+
+  .clause-body {
+    display: none;
+    padding: 12px 16px 14px 44px;
+    border-top: 1px solid var(--border);
+    background: #22222A;
+  }
+  .clause-card.open .clause-body { display: block; }
+
+  .clause-example {
+    background: var(--bg);
+    border-left: 3px solid var(--border);
+    padding: 10px 12px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .clause-example strong { color: var(--text); font-weight: 600; }
+
+  .view-source-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 5px 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .view-source-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--text-secondary);
+    color: var(--text);
+  }
+
+  /* DOCUMENTS */
+  .documents-section {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .documents-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+    color: var(--text-muted);
+  }
+  .doc-category { margin-bottom: 16px; }
+  .doc-cat-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .doc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .doc-tag {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.12s;
+  }
+  .doc-tag:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+
+  /* CUSTOMIZE MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: transparent;
+    border-radius: 16px;
+    padding: 32px;
+    width: 380px;
+    max-width: 90vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  .modal-icon { font-size: 40px; margin-bottom: 12px; }
+  .modal-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
+  .modal-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; text-align: left; }
+  .modal-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.12s;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .modal-option:hover { border-color: var(--blue); background: var(--blue-light); }
+  .modal-option.selected { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+  .modal-option input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--blue); }
+  .modal-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--text);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.15s;
+  }
+  .modal-btn:hover { opacity: 0.85; }
+
+  /* SOURCE MODAL */
+  .source-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .source-modal-overlay.open { display: flex; }
+  .source-modal {
+    background: #2A2A34;
+    border-radius: 16px;
+    padding: 28px;
+    width: 500px;
+    max-width: 90vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .source-modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+  }
+  .source-modal-title { font-size: 15px; font-weight: 600; }
+  .source-modal-close {
+    background: none; border: none; cursor: pointer; font-size: 20px; color: var(--text-muted);
+    line-height: 1;
+  }
+  .source-text {
+    background: #1C1C24;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-family: 'DM Mono', monospace;
+  }
+  .source-text mark {
+    background: #F5C842;
+    color: #1A1A1A;
+    border-radius: 2px;
+    padding: 0 3px;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <span class="site-logo">ToS;<span>DR</span></span>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- SERVICE HEADER -->
+  <div class="service-header">
+    <div class="service-identity">
+      <div class="service-logo">a</div>
+      <h1 class="service-name">Amazon</h1>
+    </div>
+    <div class="grade-tooltip-wrap">
+      <div class="grade-badge">
+        <span class="grade-letter">D</span>
+        <div class="grade-label">
+          <strong>Poor</strong>
+          Hover for details
+        </div>
+      </div>
+      <div class="grade-tooltip">
+        <p>ToS;DR grades services A–E based on how their terms treat users.</p>
+        <div class="grade-scale">
+          <div class="grade-row"><span class="grade-pill g-a">A</span> Terms treat you fairly</div>
+          <div class="grade-row"><span class="grade-pill g-b">B</span> Fair but improvable</div>
+          <div class="grade-row"><span class="grade-pill g-c">C</span> Some issues to note</div>
+          <div class="grade-row"><span class="grade-pill g-d">D</span> Important issues present</div>
+          <div class="grade-row"><span class="grade-pill g-e">E</span> Serious concerns raised</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISK SNAPSHOT -->
+  <div class="risk-snapshot">
+    <div class="risk-snapshot-title">⚠ Top 3 risks at a glance</div>
+    <div class="risk-item">
+      <span class="risk-icon">🔴</span>
+      <span class="risk-text">Terms may be changed at any time without notice</span>
+    </div>
+    <div class="risk-item">
+      <span class="risk-icon">🔴</span>
+      <span class="risk-text">Personal data is given to third parties</span>
+    </div>
+    <div class="risk-item">
+      <span class="risk-icon">🔴</span>
+      <span class="risk-text">The service uses your personal data for advertising</span>
+    </div>
+  </div>
+
+  <!-- COMBINED FILTER ROW -->
+  <div class="filter-row">
+    <div class="section-tabs">
+      <button class="section-tab active" data-tab="all" onclick="setTab(this,'all')">✓ All</button>
+      <button class="section-tab" data-tab="data" onclick="setTab(this,'data')">Your Data<span class="tab-tip">Personal info: names, addresses, phone numbers, emails</span></button>
+      <button class="section-tab" data-tab="money" onclick="setTab(this,'money')">Your Money<span class="tab-tip">Payments, subscriptions, auto-renewal, refunds</span></button>
+      <button class="section-tab" data-tab="rights" onclick="setTab(this,'rights')">Your Rights<span class="tab-tip">Legal rights, arbitration, account termination</span></button>
+      <button class="section-tab" data-tab="content" onclick="setTab(this,'content')">Your Activity & Content<span class="tab-tip">User-created content: posts, comments, uploaded files</span></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div class="severity-filters">
+        <!-- Thumbs Up (Good) -->
+        <button class="sev-btn good active" onclick="toggleSev(this,'good')">
+          <span class="tip">Positive</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/>
+            <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+          </svg>
+        </button>
+        <!-- Hand/Stop (Neutral) -->
+        <button class="sev-btn neutral active" onclick="toggleSev(this,'neutral')">
+          <span class="tip">Neutral</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 11V6a2 2 0 0 0-4 0v5"/>
+            <path d="M14 10V4a2 2 0 0 0-4 0v6"/>
+            <path d="M10 10.5V6a2 2 0 0 0-4 0v8"/>
+            <path d="M6 14a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-2.5"/>
+          </svg>
+        </button>
+        <!-- Thumbs Down (Bad) -->
+        <button class="sev-btn bad active" onclick="toggleSev(this,'bad')">
+          <span class="tip">Negative</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D94F3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/>
+            <path d="M17 2h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/>
+          </svg>
+        </button>
+      </div>
+      <button class="reset-btn" id="resetBtn" onclick="resetFilters()">↺ Reset</button>
+    </div>
+  </div>
+
+  <div class="auto-sort-note">↕ Auto-sorted by severity: bad → neutral → good</div>
+
+  <!-- CLAUSE LIST -->
+  <div class="clause-list-wrap">
+  <div class="clause-list" id="clauseList">
+
+    <!-- BAD CLAUSES -->
+    <div class="clause-card bad" data-severity="bad" data-cat="data">
+      <div class="clause-header" onclick="toggleClause(this)">
+        <span class="clause-icon">👎</span>
+        <div class="clause-main">
+          <div class="clause-title">Personal data is given to third parties</div>
+          <div class="clause-verdict">Amazon can share your personal information with outside companies.</div>
+          <div class="clause-meta"><span class="cat-tag cat-data">Data</span></div>
+        </div>
+        <span class="clause-toggle">⌄</span>
+      </div>
+      <div class="clause-body">
+        <div class="clause-example"><strong>Real-world example:</strong> Your purchase history may be shared with advertisers to target you on other websites.</div>
+        <button class="view-source-btn" onclick="openSource('amazon-data-sharing')">📄 View source</button>
+      </div>
+    </div>
+
+    <div class="clause-card bad" data-severity="bad" data-cat="data">
+      <div class="clause-header" onclick="toggleClause(this)">
+        <span class="clause-icon">👎</span>
+        <div class="clause-main">
+          <div class="clause-title">Terms may be changed at any time without notice</div>
+          <div class="clause-verdict">Amazon can update the rules whenever they want without telling you.</div>
+          <div class="clause-meta"><span class="cat-tag cat-data">Data</span></div>
+        </div>
+        <span class="clause-toggle">⌄</span>
+      </div>
+      <div class="clause-body">
+        <div class="clause-example"><strong>Real-world example:</strong> A benefit like free returns could disappear without any notification.</div>
+        <button class="view-source-btn" onclick="openSource('amazon-terms-change')">📄 View source</button>
+      </div>
+    </div>
+
+    <div class="clause-card bad" data-severity="bad" data-cat="data">
+      <div class="clause-header" onclick="toggleClause(this)">
+        <span class="clause-icon">👎</span>
+        <div class="clause-main">
+          <div class="clause-title">The service uses your personal data for advertising</div>
+          <div class="clause-verdict">Amazon uses your data to show you targeted ads.</div>
+          <div class="clause-meta"><span class="cat-tag cat-data">Data</span></div>
+        </div>
+        <span class="clause-toggle">⌄</span>
+      </div>
+      <div class="clause-body">
+        <div class="clause-example"><strong>Real-world example:</strong> Items you browsed but didn't buy may follow you as ads on other sites.</div>
+        <button class="view-source-btn" onclick="openSource('amazon-advertising')">📄 View source</button>
+      </div>
+    </div>
+
+    <div class="clause-card bad" data-severity="bad" data-cat="rights">
+      <div class="clause-header" onclick="toggleClause(this)">
+        <span class="clause-icon">👎</span>
+        <div class="clause-main">
+          <div class="clause-title">The service can delete your account without prior notice</div>
+          <div class="clause-verdict">Amazon may terminate your account at any time for any reason.</div>
+          <div class="clause-meta"><span class="cat-tag cat-rights">Rights</span></div>
+        </div>
+        <span class="clause-toggle">⌄</span>
+      </div>
+      <div class="clause-body">
+        <div class="clause-example"><strong>Real-world example:</strong> All your purchased digital content (Kindle books, Prime Video) could become inaccessible.</div>
+        <button class="view-source-btn" onclick="openSource('amazon-account-deletion')">📄 View source</button>
+      </div>
+    </div>
+
+    <div class="clause-card bad" data-severity="bad" data-cat="money">
+      <div class="clause-header" onclick="toggleClause(this)">
+        <span class="clause-icon">👎</span>
+        <div class="clause-main">
+          <div class="clause-title">Subscription auto-renews unless cancelled</div>
+          <div class="clause-verdict">Prime membership renews automatically and you may be charged without a separate reminder.</div>
+          <div class="clause-meta"><span class="cat-tag cat-money">Money</span></div>
+        </div>
+        <span class="clause-toggle">⌄</span>
+      </div>
+      <div class="clause-body">
+        <div class="clause-example"><strong>Real-world example:</strong> Many users have been charged for a full year of Prime after forgetting to cancel a free trial.</div>
+        <button class="view-source-btn" onclick="openSource('amazon-autorenew')">📄 View source</button>
+      </div>
+    </div>
+
+    <!-- NEUTRAL CLAUSES -->
+    <div class="clause-card neutral" data-severity="neutral" data-cat="data">
+      <div class="clause-header" onclick="toggleClause(this)">
+        <span class="clause-icon">ℹ️</span>
+        <div class="clause-main">
+          <div class="clause-title">Third parties are involved in operating the service</div>
+          <div class="clause-verdict">Some parts of Amazon are run by outside companies.</div>
+          <div class="clause-meta"><span class="cat-tag cat-data">Data</span></div>
+        </div>
+        <span class="clause-toggle">⌄</span>
+      </div>
+      <div class="clause-body">
+        <div class="clause-example"><strong>Real-world example:</strong> Marketplace sellers and AWS partners may handle parts of your order or data.</div>
+        <button class="view-source-btn" onclick="openSource('amazon-third-party')">📄 View source</button>
+      </div>
+    </div>
+
+    <div class="clause-card neutral" data-severity="neutral" data-cat="rights">
+      <div class="clause-header" onclick="toggleClause(this)">
+        <span class="clause-icon">ℹ️</span>
+        <div class="clause-main">
+          <div class="clause-title">Disputes are handled by binding arbitration</div>
+          <div class="clause-verdict">You may be required to resolve disputes outside of court.</div>
+          <div class="clause-meta"><span class="cat-tag cat-rights">Rights</span></div>
+        </div>
+        <span class="clause-toggle">⌄</span>
+      </div>
+      <div class="clause-body">
+        <div class="clause-example"><strong>Real-world example:</strong> If Amazon overcharges you, you may not be able to join a class-action lawsuit and must arbitrate individually.</div>
+        <button class="view-source-btn" onclick="openSource('amazon-arbitration')">📄 View source</button>
+      </div>
+    </div>
+
+    <!-- GOOD CLAUSES -->
+    <div class="clause-card good" data-severity="good" data-cat="data">
+      <div class="clause-header" onclick="toggleClause(this)">
+        <span class="clause-icon">👍</span>
+        <div class="clause-main">
+          <div class="clause-title">A complaint mechanism is provided for personal data</div>
+          <div class="clause-verdict">You can file a complaint if you think your data was mishandled.</div>
+          <div class="clause-meta"><span class="cat-tag cat-data">Data</span></div>
+        </div>
+        <span class="clause-toggle">⌄</span>
+      </div>
+      <div class="clause-body">
+        <div class="clause-example"><strong>Real-world example:</strong> You can contact Amazon's privacy office or escalate to a data protection authority.</div>
+        <button class="view-source-btn" onclick="openSource('amazon-complaint')">📄 View source</button>
+      </div>
+    </div>
+
+    <div class="clause-card good" data-severity="good" data-cat="data">
+      <div class="clause-header" onclick="toggleClause(this)">
+        <span class="clause-icon">👍</span>
+        <div class="clause-main">
+          <div class="clause-title">Information is provided about security practices</div>
+          <div class="clause-verdict">Amazon explains how your data is protected.</div>
+          <div class="clause-meta"><span class="cat-tag cat-data">Data</span></div>
+        </div>
+        <span class="clause-toggle">⌄</span>
+      </div>
+      <div class="clause-body">
+        <div class="clause-example"><strong>Real-world example:</strong> Amazon publishes its encryption standards and security certifications publicly.</div>
+        <button class="view-source-btn" onclick="openSource('amazon-security')">📄 View source</button>
+      </div>
+    </div>
+
+  </div><!-- end clause-list -->
+  </div><!-- end clause-list-wrap -->
+
+  <!-- DOCUMENTS -->
+  <div class="documents-section">
+    <div class="documents-title">Documents</div>
+    <div class="doc-category">
+      <div class="doc-cat-label">Data &amp; Privacy</div>
+      <div class="doc-tags">
+        <span class="doc-tag">Amazon Privacy Notice</span>
+        <span class="doc-tag">EU-US Privacy Shield</span>
+        <span class="doc-tag">Interest-Based Ads</span>
+      </div>
+    </div>
+    <div class="doc-category">
+      <div class="doc-cat-label">Payments &amp; Subscriptions</div>
+      <div class="doc-tags">
+        <span class="doc-tag">Amazon Prime Terms</span>
+        <span class="doc-tag">Monthly Payments Terms</span>
+        <span class="doc-tag">Kindle Unlimited Terms</span>
+      </div>
+    </div>
+    <div class="doc-category">
+      <div class="doc-cat-label">Legal &amp; Usage</div>
+      <div class="doc-tags">
+        <span class="doc-tag">Conditions of Use</span>
+        <span class="doc-tag">Alexa Terms</span>
+        <span class="doc-tag">Amazon Maps Terms</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- SOURCE MODAL -->
+<div class="source-modal-overlay" id="sourceModal">
+  <div class="source-modal">
+    <div class="source-modal-header">
+      <span class="source-modal-title">Original source — Amazon Conditions of Use</span>
+      <button class="source-modal-close" onclick="closeSource()">✕</button>
+    </div>
+    <div class="source-text" id="sourceText"></div>
+  </div>
+</div>
+
+<script>
+  // CLAUSE TOGGLE
+  function toggleClause(header) {
+    header.parentElement.classList.toggle('open');
+  }
+
+  // SEVERITY FILTER
+  const activeFilters = new Set(['bad','good','neutral']);
+  function toggleSev(btn, type) {
+    if (activeFilters.has(type)) {
+      activeFilters.delete(type);
+      btn.classList.remove('active');
+    } else {
+      activeFilters.add(type);
+      btn.classList.add('active');
+    }
+    updateResetBtn();
+    applyFilters();
+  }
+
+  function resetFilters() {
+    ['bad','good','neutral'].forEach(t => activeFilters.add(t));
+    document.querySelectorAll('.sev-btn').forEach(b => b.classList.add('active'));
+    activeTab = 'all';
+    document.querySelectorAll('.section-tab').forEach(b => {
+      b.classList.remove('active');
+      const t = b.getAttribute('data-tab');
+      b.textContent = tabLabels[t];
+    });
+    const allTab = document.querySelector('[data-tab="all"]');
+    allTab.classList.add('active');
+    allTab.textContent = '✓ All';
+    updateResetBtn();
+    applyFilters();
+  }
+
+  function updateResetBtn() {
+    const allActive = activeFilters.size === 3 && activeTab === 'all';
+    document.getElementById('resetBtn').classList.toggle('active', !allActive);
+  }
+
+  // TAB
+  let activeTab = 'all';
+  const tabLabels = { all: 'All', data: 'Your Data', money: 'Your Money', rights: 'Your Rights', content: 'Your Activity & Content' };
+  const tabTips = {
+    all: '',
+    data: 'Personal info: names, addresses, phone numbers, emails',
+    money: 'Payments, subscriptions, auto-renewal, refunds',
+    rights: 'Legal rights, arbitration, account termination',
+    content: 'User-created content: posts, comments, uploaded files'
+  };
+  function setTab(btn, tab) {
+    document.querySelectorAll('.section-tab').forEach(b => {
+      b.classList.remove('active');
+      const t = b.getAttribute('data-tab');
+      const tip = tabTips[t] ? `<span class="tab-tip">${tabTips[t]}</span>` : '';
+      b.innerHTML = tabLabels[t] + tip;
+    });
+    btn.classList.add('active');
+    const tip = tabTips[tab] ? `<span class="tab-tip">${tabTips[tab]}</span>` : '';
+    btn.innerHTML = '✓ ' + tabLabels[tab] + tip;
+    activeTab = tab;
+    updateResetBtn();
+    applyFilters();
+  }
+
+  function applyFilters() {
+    document.querySelectorAll('.clause-card').forEach(card => {
+      const sev = card.dataset.severity;
+      const cat = card.dataset.cat;
+      const sevOk = activeFilters.has(sev);
+      const tabOk = activeTab === 'all' || cat === activeTab;
+      card.style.display = (sevOk && tabOk) ? '' : 'none';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.clause-card').forEach(c => c.style.display = '');
+    applyFilters();
+  });
+  const sourceDocs = {
+    'amazon-data-sharing': 'We share your personal information with third parties as described in this notice. <mark>Personal information may be shared with our subsidiaries, affiliates, and trusted business partners.</mark> We do not sell your personal information.',
+    'amazon-terms-change': '<mark>Amazon reserves the right to make changes to our site, policies, Service Terms, and these Conditions of Use at any time.</mark> If any of these conditions shall be deemed invalid, void, or for any reason unenforceable, that condition shall be deemed severable.',
+    'amazon-advertising': 'Interest-Based Ads. <mark>We use your browsing and purchase history, as well as other information we collect about you, to show you interest-based ads.</mark> You can opt out of certain types of interest-based advertising.',
+    'amazon-account-deletion': '<mark>Amazon reserves the right to refuse service, terminate accounts, terminate your rights to use Amazon Services, remove or edit content.</mark> Amazon will not be liable for any termination of your access to or use of any Amazon Service.',
+    'amazon-autorenew': '<mark>Your Amazon Prime membership continues until cancelled. Unless you cancel your membership before the next billing date, you authorize us to charge the then-current membership fee.</mark>',
+    'amazon-third-party': 'Third-party sellers list products for sale on Amazon. <mark>Amazon is not responsible for examining or evaluating, and we do not warrant, any such third-party content or websites.</mark>',
+    'amazon-arbitration': '<mark>Any dispute or claim relating in any way to your use of any Amazon Service will be resolved by binding arbitration, rather than in court</mark>, except that you may assert claims in small claims court.',
+    'amazon-complaint': 'To contact us about a privacy concern, please write to: <mark>Amazon.com Privacy Notice, 410 Terry Avenue North, Seattle, WA 98109-5210. You may also contact our data protection officer.</mark>',
+    'amazon-security': '<mark>We work to protect the security of your personal information during transmission by using Secure Sockets Layer (SSL) software, which encrypts information you input.</mark> We reveal only the last four digits of your credit card numbers.',
+  };
+  function openSource(key) {
+    document.getElementById('sourceText').innerHTML = sourceDocs[key] || 'Source text not available.';
+    document.getElementById('sourceModal').classList.add('open');
+  }
+  function closeSource() { document.getElementById('sourceModal').classList.remove('open'); }
+  document.getElementById('sourceModal').addEventListener('click', function(e) {
+    if (e.target === this) closeSource();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazon - Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Amazon+Ember:wght@400;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', Arial, sans-serif;
+    background: #EAEDED;
+    color: #0F1111;
+    font-size: 14px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav {
+    width: 100%;
+    background: #131921;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .nav-logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -1px;
+  }
+  .nav-logo span { color: #FF9900; }
+  .card {
+    background: white;
+    border: 1px solid #D5D9D9;
+    border-radius: 8px;
+    padding: 28px 30px;
+    width: 350px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .card-title {
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #0F1111;
+  }
+  .form-label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: block;
+    color: #0F1111;
+  }
+  .form-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #888C8C;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 14px;
+    outline: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .form-input:focus { border-color: #E77600; box-shadow: 0 0 0 3px rgba(228,121,17,0.5); }
+  .btn-continue {
+    width: 100%;
+    padding: 9px;
+    background: linear-gradient(to bottom, #F7DFA5, #F0C14B);
+    border: 1px solid #A88734;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    color: #111;
+    margin-bottom: 14px;
+  }
+  .btn-continue:hover { background: linear-gradient(to bottom, #F5D78E, #EEB933); }
+
+  .tos-line {
+    font-size: 12px;
+    color: #565959;
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+  .tos-link {
+    color: #0066C0;
+    text-decoration: none;
+  }
+  .tos-link:hover { text-decoration: underline; color: #C45500; }
+
+  /* WHAT AM I AGREEING TO bubble */
+  .agreeing-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .agreeing-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #FFF4E5;
+    border: 1.5px solid #FF9900;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #C45500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .agreeing-btn:hover {
+    background: #FF9900;
+    color: white;
+    border-color: #FF9900;
+  }
+  .agreeing-btn svg { width: 13px; height: 13px; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #E7E7E7;
+    margin: 18px 0;
+  }
+  .new-customer {
+    font-size: 13px;
+    color: #0F1111;
+    text-align: center;
+  }
+  .new-customer a { color: #0066C0; text-decoration: none; font-weight: 500; }
+  .new-customer a:hover { text-decoration: underline; color: #C45500; }
+
+  .footer {
+    margin-top: 24px;
+    font-size: 11px;
+    color: #565959;
+    display: flex;
+    gap: 16px;
+  }
+  .footer a { color: #565959; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">amazon<span>.</span>co.jp</div>
+</nav>
+
+<div class="card">
+  <h1 class="card-title">Sign in or create account</h1>
+
+  <label class="form-label">Enter mobile number or email</label>
+  <input class="form-input" type="text" placeholder="">
+
+  <button class="btn-continue">Continue</button>
+
+  <div class="tos-line">
+    By continuing, you agree to Amazon's
+    <a class="tos-link" href="#">Conditions of Use</a>
+    and <a class="tos-link" href="#">Privacy Notice</a>.
+  </div>
+
+  <div class="agreeing-wrap">
+    <a class="agreeing-btn" href="tosdr_final_prototype_v6.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      What am I agreeing to?
+    </a>
+  </div>
+
+  <p style="font-size:12px;color:#565959;margin-top:10px;">Need help? <a class="tos-link" href="#">Get help</a></p>
+
+  <hr class="divider">
+
+  <div class="new-customer">
+    Buying for work? <a href="#">Create a free business account</a>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="#">Conditions of Use</a>
+  <a href="#">Privacy Notice</a>
+  <a href="#">Help</a>
+</div>
+<p style="font-size:11px;color:#888;margin-top:6px;">© 1996-2026, Amazon.com, Inc. or its affiliates</p>
+
+</body>
+</html>
