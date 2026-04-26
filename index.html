@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amazon - Sign In</title>
+<title>Amazon Demo Interface</title>
 <link href="https://fonts.googleapis.com/css2?family=Amazon+Ember:wght@400;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,6 +17,21 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .prototype-banner {
+    width: 100%;
+    background: #fff8e1;
+    border-bottom: 1px solid #f0c14b;
+    color: #4d3b00;
+    text-align: center;
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+
+  .prototype-banner strong {
+    font-weight: 700;
+  }
+
   .nav {
     width: 100%;
     background: #131921;
@@ -26,10 +41,10 @@
     margin-bottom: 24px;
   }
   .nav-logo {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
     color: white;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
   }
   .nav-logo span { color: #FF9900; }
   .card {
@@ -56,28 +71,29 @@
   .form-input {
     width: 100%;
     padding: 8px 10px;
-    border: 1px solid #888C8C;
+    border: 1px solid #B8B8B8;
     border-radius: 4px;
     font-size: 14px;
     margin-bottom: 14px;
     outline: none;
     font-family: 'DM Sans', sans-serif;
+    background: #F3F3F3;
+    color: #777;
+    cursor: not-allowed;
   }
-  .form-input:focus { border-color: #E77600; box-shadow: 0 0 0 3px rgba(228,121,17,0.5); }
   .btn-continue {
     width: 100%;
     padding: 9px;
-    background: linear-gradient(to bottom, #F7DFA5, #F0C14B);
-    border: 1px solid #A88734;
+    background: #E0E0E0;
+    border: 1px solid #B8B8B8;
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
-    cursor: pointer;
+    cursor: not-allowed;
     font-family: 'DM Sans', sans-serif;
-    color: #111;
+    color: #666;
     margin-bottom: 14px;
   }
-  .btn-continue:hover { background: linear-gradient(to bottom, #F5D78E, #EEB933); }
 
   .tos-line {
     font-size: 12px;
@@ -91,7 +107,6 @@
   }
   .tos-link:hover { text-decoration: underline; color: #C45500; }
 
-  /* WHAT AM I AGREEING TO bubble */
   .agreeing-wrap {
     display: flex;
     align-items: center;
@@ -147,17 +162,21 @@
 </head>
 <body>
 
+<div class="prototype-banner">
+  <strong>Prototype only:</strong> This is not a real Amazon login page. Do not enter personal information.
+</div>
+
 <nav class="nav">
-  <div class="nav-logo">amazon<span>.</span>co.jp</div>
+  <div class="nav-logo">Amazon <span>(demo interface)</span></div>
 </nav>
 
 <div class="card">
   <h1 class="card-title">Sign in or create account</h1>
 
   <label class="form-label">Enter mobile number or email</label>
-  <input class="form-input" type="text" placeholder="">
+  <input class="form-input" type="text" placeholder="" disabled>
 
-  <button class="btn-continue">Continue</button>
+  <button class="btn-continue" disabled>Continue</button>
 
   <div class="tos-line">
     By continuing, you agree to Amazon's
@@ -178,8 +197,8 @@
 
   <hr class="divider">
 
-  <div class="new-customer">
-    Buying for work? <a href="#">Create a free business account</a>
+  <div class="new-customer"> 
+Buying for work? <a href="#">Create a free business account</a> 
   </div>
 </div>
 
